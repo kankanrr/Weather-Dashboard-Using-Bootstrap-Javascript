@@ -20,10 +20,12 @@ function requestApi() {
             return alert('Please check your search input');
         }
 
+        console.log(data);
+
         latitude = data[0].lat;
         longitude = data[0].lon;
 
-        getWeatherDataByLatandLong(latitude, longitude);
+        getWeatherLatLon(latitude, longitude);
     })
     lastSearch();
 }
@@ -42,7 +44,7 @@ function lastSearch() {
     let cityName = document.querySelector('#inputbox').value;
     let lastSearchBtn = document.createElement('button');
 
-    localStorage.setItem(document.querySelector('#inputbox').value);
+    localStorage.setItem(document.querySelector('#inputbox').value, document.querySelector('#inputbox').value);
 
     lastSearchBtn.id = 'lastSearchBtnOverride' + cityName;
     lastSearchBtn.innerText = cityName;
@@ -56,7 +58,7 @@ function lastSearch() {
     }
 }
 
-function getWeatherLatLon() {
+function getWeatherLatLon(latitude, longitude) {
     let APIKey = "60815d1795f8f58191b37d7318357fa3";
     let requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + latitude + '&lon=' + longitude + '&appid=' + APIKey;
 
@@ -79,34 +81,33 @@ function getWeatherLatLon() {
             if (+objLocationCount === 40) {
                 objLocationCount = 39;
             }
-        }
 
         // Get data
         
         // Get Name
-        let currentCityApi = data.city.name;
-        let currentCityElements = document.createElement('p');
-        currentCityElements.innerText = 'City: ' + currentCityApi;
-        document.getElementById('day ' + i).appendChild(currentCityElements);
+        let currentCityApi = data.name;
+        let currentCityElement = document.createElement("p");
+        currentCityElement.innerText = 'City: ' + currentCityApi;
+        document.querySelector('#day' + i).appendChild(currentCityElement);
 
         // Get Date
-        let currentDateFromAPI = data.list[objLocationCount].dt_txt;
+        let currentDateFromAPI = data[objLocationCount].dt_txt;
         let currentDateElement = document.createElement('p');
         currentDateElement.innerText = 'Date: ' + currentDateFromAPI.slice(0, 11);
-        document.getElementById('day ' + i).appendChild(currentDateElement);
+        document.querySelector('#day' + i).appendChild(currentDateElement);
 
         // Get weather descr
         var iconNum = data.list[objectLocationCounter].weather[0].icon
         var iconUrl = 'https://openweathermap.org/img/wn/' + iconNum + "@2x.png";
         var currentWeatherIcon = document.createElement("img");
         currentWeatherIcon.src = iconUrl;
-        document.getElementById("day" + i).appendChild(currentWeatherIcon);
+        document.querySelector('#day' + i).appendChild(currentWeatherIcon);
 
         // weather condition
         var currentConditionFromAPI = data.list[objectLocationCounter].weather[0].description;
         var currentConditionElement = document.createElement("p");
         currentConditionElement.innerText = currentConditionFromAPI.toUpperCase();
-        document.getElementById("day" + i).appendChild(currentConditionElement);
+        document.querySelector('#day' + i).appendChild(currentConditionElement);
 
         var APIKelvinTemp = data.list[objectLocationCounter].main.temp;
 
@@ -135,6 +136,20 @@ function getWeatherLatLon() {
         windSpeedElement.innerText = "Wind Speed: " + windSpeedAPI + " meters per second";
         document.getElementById("day" + i).appendChild(windSpeedElement);
 
-        objectLocationCounter = objectLocationCounter + 7; 
-    })
+        objLocationCount = objLocationCount + 7;
+        }
+    }
+)
+}
+
+document.getElementById("submitBtn").addEventListener('click', checkInput);
+
+function checkInput() {
+    let inputCheck = document.querySelector("#inputbox").value;
+        
+    if (inputCheck === "") {
+        alert("Box cannot be blank");
+    } else {
+      requestApi();
+    } 
 }
