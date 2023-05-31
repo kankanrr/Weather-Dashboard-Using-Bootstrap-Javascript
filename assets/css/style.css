@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&family=Lilita+One&display=swap');
+
+
+* {
+    /* border: 1px solid red; */
+    background-color: #8eb4ee;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Kanit', sans-serif;
+    font-family: 'Lilita One', cursive;
+    font-size: 16px;
+}
+
+body {
+    background-color: #8590d1;
+}
+
+.custom-navClass {
+    background-color: #9789e2;
+}
+
+.new-text-style {
+    font-size: 2em;
+    color: #313131;
+    pointer-events: none;
+}
+
+.input-group-text {
+    color: #3f3f3f;
+}
+
+.container-override {
+    margin-top: 30px; 
+}
+
+h2 {
+    color: #2e3133;
+}
+
+.lastSearchBtnOverride {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;    
+}
+
+#lastsearch {
+    margin-top: 10px;
+}
+
+p {
+    font-size: 1.5em;
+    color: #354A54;
+}
+
+.customborder {
+    border: 5px solid #102e49;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+.custom5daycontainer {
+    margin: auto;
+    margin-bottom: 10px;
+}
