@@ -6,7 +6,7 @@ function requestApi() {
 
     // api key
 
-    let APIKey = "60815d1795f8f58191b37d7318357fa3";
+    let APIKey = "60ebe634619c5700bf67dc2646a55408";
     let requestUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&limit=5&appid=' + APIKey;
 
     // requestUrl function to get api
@@ -59,12 +59,12 @@ function lastSearch() {
 }
 
 function getWeatherLatLon(latitude, longitude) {
-    let APIKey = "60815d1795f8f58191b37d7318357fa3";
+    let APIKey = "60ebe634619c5700bf67dc2646a55408";
     let requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + latitude + '&lon=' + longitude + '&appid=' + APIKey;
-
+    
     fetch(requestUrl)
     .then(function (response) {
-        return response.json;
+        return response.json();
     })
     .then(function (data) {
         document.getElementById('day0').innerHTML = '';
@@ -82,40 +82,40 @@ function getWeatherLatLon(latitude, longitude) {
                 objLocationCount = 39;
             }
 
-        // Get data
+        // Get data 
         
         // Get Name
-        let currentCityApi = data.name;
+        let currentCityApi = data.city.name;
         let currentCityElement = document.createElement("p");
         currentCityElement.innerText = 'City: ' + currentCityApi;
         document.querySelector('#day' + i).appendChild(currentCityElement);
 
         // Get Date
-        let currentDateFromAPI = data[objLocationCount].dt_txt;
+        let currentDateFromAPI = data.list[objLocationCount].dt_txt;
         let currentDateElement = document.createElement('p');
         currentDateElement.innerText = 'Date: ' + currentDateFromAPI.slice(0, 11);
         document.querySelector('#day' + i).appendChild(currentDateElement);
 
         // Get weather descr
-        var iconNum = data.list[objectLocationCounter].weather[0].icon
+        var iconNum = data.list[objLocationCount].weather[0].icon
         var iconUrl = 'https://openweathermap.org/img/wn/' + iconNum + "@2x.png";
         var currentWeatherIcon = document.createElement("img");
         currentWeatherIcon.src = iconUrl;
         document.querySelector('#day' + i).appendChild(currentWeatherIcon);
 
         // weather condition
-        var currentConditionFromAPI = data.list[objectLocationCounter].weather[0].description;
+        var currentConditionFromAPI = data.list[objLocationCount].weather[0].description;
         var currentConditionElement = document.createElement("p");
         currentConditionElement.innerText = currentConditionFromAPI.toUpperCase();
         document.querySelector('#day' + i).appendChild(currentConditionElement);
 
-        var APIKelvinTemp = data.list[objectLocationCounter].main.temp;
+        var APIKelvinTemp = data.list[objLocationCount].main.temp;
 
         var FahrenTemp = (APIKelvinTemp - 273.15) * 9/5 + 32;
 
         var cleanTempinFahren = Math.round(FahrenTemp);
 
-        var TempinCel = TempInKelvinFromAPI - 273.15;
+        var TempinCel = APIKelvinTemp - 273.15;
         var cleanTempinCel = Math.round(TempinCel);
 
         var temperatureElement = document.createElement("p");
@@ -123,7 +123,7 @@ function getWeatherLatLon(latitude, longitude) {
         document.getElementById("day" + i).appendChild(temperatureElement);
 
         // Get humidity lvls
-        var humidityFromApi = data.list[objectLocationCounter].main.humidity;
+        var humidityFromApi = data.list[objLocationCount].main.humidity;
         var humidityElement = document.createElement("p");
 
         // convert to %
