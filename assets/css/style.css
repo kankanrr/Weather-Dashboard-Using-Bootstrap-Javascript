@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Lilita+One&display=swap');
 
+/* global styling */
 
 * {
     /* border: 1px solid red; */
@@ -16,6 +17,8 @@ body {
     background-color: #8590d1;
 }
 
+/* nav bar / header */
+
 .custom-navClass {
     background-color: #9789e2;
 }
@@ -29,6 +32,8 @@ body {
 .input-group-text {
     color: #3f3f3f;
 }
+
+/* Container styling */
 
 .container-override {
     margin-top: 30px; 
